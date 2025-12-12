@@ -64,7 +64,7 @@ To use Bella with this project:
 ```bash
 # 1. Clone both repositories
 git clone https://github.com/purvanshjoshi/ai-influencer.git
-git clone https://github.com/[bella-owner]/Bella.git
+git clone https://github.com/GRISHM7890/Bella.git
 
 # 2. Navigate to Bella and install dependencies
 cd Bella
