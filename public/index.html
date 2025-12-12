@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Influencer Platform - Bella Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h1>🤖 Bella</h1>
+                <p>AI Influencer</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="switchView('dashboard')">
+                    <span class="icon">📊</span> Dashboard
+                </li>
+                <li class="nav-item" onclick="switchView('create')">
+                    <span class="icon">✨</span> Create Influencer
+                </li>
+                <li class="nav-item" onclick="switchView('generate')">
+                    <span class="icon">📝</span> Generate Content
+                </li>
+                <li class="nav-item" onclick="switchView('analytics')">
+                    <span class="icon">📈</span> Analytics
+                </li>
+                <li class="nav-item" onclick="switchView('settings')">
+                    <span class="icon">⚙️</span> Settings
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Dashboard</h2>
+                    <p id="page-subtitle">Welcome to your AI Influencer Platform</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-icon" onclick="toggleNotifications()">
+                        🔔
+                    </button>
+                    <button class="btn-icon" onclick="toggleProfile()">
+                        👤
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view active">
+                <div class="dashboard-grid">
+                    <!-- Quick Stats -->
+                    <div class="stat-card">
+                        <div class="stat-icon">🤖</div>
+                        <div class="stat-content">
+                            <h3>Total Influencers</h3>
+                            <p class="stat-value" id="total-influencers">0</p>
+                            <span class="stat-label">Active AI personalities</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <h3>Content Generated</h3>
+                            <p class="stat-value" id="total-content">0</p>
+                            <span class="stat-label">Posts this month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <h3>Total Engagement</h3>
+                            <p class="stat-value" id="total-engagement">0</p>
+                            <span class="stat-label">Interactions tracked</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <h3>Avg. Score</h3>
+                            <p class="stat-value" id="avg-score">0</p>
+                            <span class="stat-label">Performance rating</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Influencers List -->
+                <div class="card">
+                    <h3>Your Influencers</h3>
+                    <div id="influencers-list" class="influencers-grid">
+                        <p class="empty-state">No influencers created yet. Start by creating one!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Create Influencer View -->
+            <section id="create" class="view">
+                <div class="card">
+                    <h3>Create New AI Influencer</h3>
+                    <form id="influencer-form" onsubmit="createInfluencer(event)">
+                        <div class="form-group">
+                            <label>Influencer Name</label>
+                            <input type="text" id="inf-name" placeholder="e.g., Luna" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Personality Type</label>
+                            <select id="inf-personality" required>
+                                <option value="">Select a personality...</option>
+                                <option value="tech-enthusiast">Tech Enthusiast</option>
+                                <option value="lifestyle">Lifestyle Coach</option>
+                                <option value="business">Business Mentor</option>
+                                <option value="creative">Creative Artist</option>
+                                <option value="fitness">Fitness Guru</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Audience</label>
+                            <input type="text" id="inf-audience" placeholder="e.g., Tech-savvy millennials" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Platform</label>
+                            <select id="inf-platform" required>
+                                <option value="">Select platform...</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="twitter">Twitter/X</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="youtube">YouTube</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Communication Style</label>
+                            <select id="inf-tone" required>
+                                <option value="">Select style...</option>
+                                <option value="professional">Professional</option>
+                                <option value="casual">Casual</option>
+                                <option value="humorous">Humorous</option>
+                                <option value="inspirational">Inspirational</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Influencer</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Generate Content View -->
+            <section id="generate" class="view">
+                <div class="card">
+                    <h3>Generate Content</h3>
+                    <form id="content-form" onsubmit="generateContent(event)">
+                        <div class="form-group">
+                            <label>Select Influencer</label>
+                            <select id="content-influencer" required>
+                                <option value="">Choose an influencer...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Content Topic</label>
+                            <input type="text" id="content-topic" placeholder="e.g., morning motivation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Content Type</label>
+                            <select id="content-type" required>
+                                <option value="">Select type...</option>
+                                <option value="post">Social Post</option>
+                                <option value="story">Story</option>
+                                <option value="caption">Caption</option>
+                                <option value="video-script">Video Script</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Variations</label>
+                            <input type="number" id="content-variations" min="1" max="5" value="3" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generate Content</button>
+                    </form>
+                    <div id="generated-content" class="generated-content"></div>
+                </div>
+            </section>
+
+            <!-- Analytics View -->
+            <section id="analytics" class="view">
+                <div class="card">
+                    <h3>Engagement Analytics</h3>
+                    <form id="analytics-form" onsubmit="loadAnalytics(event)">
+                        <div class="form-group">
+                            <label>Select Influencer</label>
+                            <select id="analytics-influencer" required>
+                                <option value="">Choose an influencer...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Time Range</label>
+                            <select id="analytics-range">
+                                <option value="daily">Daily</option>
+                                <option value="weekly" selected>Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Load Analytics</button>
+                    </form>
+                    <div id="analytics-data" class="analytics-container"></div>
+                </div>
+            </section>
+
+            <!-- Settings View -->
+            <section id="settings" class="view">
+                <div class="card">
+                    <h3>Platform Settings</h3>
+                    <div class="settings-section">
+                        <h4>API Configuration</h4>
+                        <div class="form-group">
+                            <label>API Endpoint</label>
+                            <input type="text" id="api-endpoint" value="http://localhost:5000/api" placeholder="API endpoint URL">
+                        </div>
+                        <div class="form-group">
+                            <label>Bella API Key</label>
+                            <input type="password" id="bella-api-key" placeholder="Your Bella LLM API key">
+                        </div>
+                        <button class="btn btn-secondary" onclick="saveSettings()">Save Settings</button>
+                    </div>
+                    <div class="settings-section">
+                        <h4>Preferences</h4>
+                        <label class="checkbox">
+                            <input type="checkbox" id="dark-mode" onchange="toggleDarkMode()">
+                            Dark Mode
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="auto-sync" checked>
+                            Auto-sync Data
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" id="notifications" checked>
+                            Enable Notifications
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
