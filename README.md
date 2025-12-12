@@ -144,6 +144,18 @@ ai-influencer/
 └── README.md                    # This file
 ```
 
+## 🚈 Bella Setup
+
+# Clone the project
+git clone https://github.com/GRISHM7890/Bella.git
+cd Bella
+
+# Install dependencies
+npm install
+
+# Download AI models
+npm run download-models
+
 ## 🚀 Getting Started
 
 ### Prerequisites
