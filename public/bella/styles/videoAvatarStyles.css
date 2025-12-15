@@ -1,0 +1,194 @@
+/**
+ * videoAvatarStyles.css
+ * Styling for Bella video-based avatar component
+ * Provides container styling, loading states, and overlay effects
+ */
+
+/* Main video avatar container */
+.bella-video-avatar-container {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  position: relative;
+  background-color: #000;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Video element styling */
+.bella-video-avatar-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Loading indicator */
+.bella-video-avatar-container.loading {
+  background-color: #1a1a1a;
+}
+
+.bella-video-avatar-container.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 100;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Loading text overlay */
+.bella-loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  z-index: 100;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.bella-loading-text .loading-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.bella-loading-text .loading-subtitle {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Animation state indicator */
+.bella-animation-state {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Courier New', monospace;
+  z-index: 50;
+}
+
+/* Fade-in animation for container */
+.bella-video-avatar-container.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Cross-fade transition for videos */
+.bella-video-avatar-container video.fade-out {
+  animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+.bella-video-avatar-container video.fade-in {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Error state styling */
+.bella-video-avatar-container.error {
+  background-color: #2a0000;
+  border: 1px solid rgba(255, 100, 100, 0.3);
+}
+
+.bella-error-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ff6464;
+  font-size: 14px;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  z-index: 100;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .bella-video-avatar-container {
+    min-height: 300px;
+  }
+
+  .bella-loading-text .loading-title {
+    font-size: 14px;
+  }
+
+  .bella-loading-text .loading-subtitle {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bella-video-avatar-container {
+    min-height: 250px;
+    border-radius: 4px;
+  }
+
+  .bella-loading-text .loading-title {
+    font-size: 12px;
+  }
+
+  .bella-loading-text .loading-subtitle {
+    font-size: 10px;
+  }
+}
+
+/* Performance optimization - GPU acceleration */
+.bella-video-avatar-container video {
+  will-change: opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Accessibility - focus state for keyboard navigation */
+.bella-video-avatar-container:focus-within {
+  outline: 2px solid rgba(100, 150, 255, 0.5);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .bella-video-avatar-container {
+    background-color: #0a0a0a;
+  }
+}
+
+/* Light mode fallback */
+@media (prefers-color-scheme: light) {
+  .bella-video-avatar-container {
+    background-color: #1a1a1a;
+  }
+}
