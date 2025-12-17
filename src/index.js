@@ -35,10 +35,17 @@ const influencerRoutes = require('./routes/influencerRoutes');
 const contentRoutes = require('./routes/contentRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 
+// Voice AI agent routes (RAG / audio tour / support)
+// Adjust the path if your routes file is named differently.
+const voiceAgentRoutes = require('./voice_ai_agents/routes');
+
 // API Routes
 app.use('/api/influencers', influencerRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/analytics', analyticsRoutes);
+
+// Mount voice AI agents under /api/voice
+app.use('/api/voice', voiceAgentRoutes);
 
 // Health check endpoint (used by NetworkAdaptationService)
 app.get('/api/health', (req, res) => {
