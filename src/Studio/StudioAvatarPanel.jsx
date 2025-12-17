@@ -1,11 +1,12 @@
 // src/pages/Studio/StudioAvatarPanel.jsx
+import React, { useState, useEffect } from 'react';
+import { useInfluencerAvatar } from '../context/InfluencerAvatarContext';
+import BellaAvatarContainer from '../../public/bella/components/BellaAvatarContainer';
+import useAdaptiveAvatarMode from '../../public/bella/hooks/useAdaptiveAvatarMode';
+import PerformanceMonitorService from '../../public/bella/services/PerformanceMonitorService';
+import NetworkAdaptationService from '../../public/bella/services/NetworkAdaptationService';
 
-import React, { useState } from 'react';
-import { useInfluencerAvatar } from '../../context/InfluencerAvatarContext';
-import BellaAvatarContainer from '../../../public/bella/components/BellaAvatarContainer';
-import useAdaptiveAvatarMode from '../../../public/bella/hooks/useAdaptiveAvatarMode';
-import PerformanceMonitorService from '../../../public/bella/services/PerformanceMonitorService';
-import NetworkAdaptationService from '../../../public/bella/services/NetworkAdaptationService';
+
 
 // Instantiate services once for the studio panel scope
 const performanceService = new PerformanceMonitorService();
