@@ -1,4 +1,4 @@
-// src/pages/Studio/StudioAvatarPanel.jsx
+// src/Studio/StudioAvatarPanel.jsx
 import React, { useState, useEffect } from 'react';
 import { useInfluencerAvatar } from '../context/InfluencerAvatarContext';
 import BellaAvatarContainer from '../../public/bella/components/BellaAvatarContainer';
@@ -6,12 +6,10 @@ import useAdaptiveAvatarMode from '../../public/bella/hooks/useAdaptiveAvatarMod
 import PerformanceMonitorService from '../../public/bella/services/PerformanceMonitorService';
 import NetworkAdaptationService from '../../public/bella/services/NetworkAdaptationService';
 
-
-
 // Instantiate services once for the studio panel scope
 const performanceService = new PerformanceMonitorService();
 const networkService = new NetworkAdaptationService({
-  pingEndpoint: '/api/bella/health'
+  pingEndpoint: '/api/health'
 });
 
 const StudioAvatarPanel = () => {
@@ -29,20 +27,43 @@ const StudioAvatarPanel = () => {
 
   const [forcedMode, setForcedMode] = useState(null);
 
-  const { mode: adaptiveMode, perfProfile, networkProfile } = useAdaptiveAvatarMode(
-    performanceService,
-    networkService,
-    forcedMode
-  );
+  const {
+    mode: adaptiveMode,
+    perfProfile,
+    networkProfile
+  } = useAdaptiveAvatarMode(performanceService, networkService, forcedMode);
 
   const effectiveMode = forcedMode || contextMode || adaptiveMode;
+
+  useEffect(() => {
+    // Start monitoring when the panel mounts
+    if (typeof performanceService.startMonitoring === 'function') {
+      performanceService.startMonitoring();
+    }
+
+    if (typeof networkService.startMonitoring === 'function') {
+      networkService.startMonitoring();
+    }
+
+    return () => {
+      // Clean up on unmount
+      if (typeof performanceService.stopMonitoring === 'function') {
+        performanceService.stopMonitoring();
+      }
+
+      if (typeof networkService.stopMonitoring === 'function') {
+        networkService.stopMonitoring();
+      }
+    };
+  }, []);
 
   const handleEmotionPreview = (emo) => {
     setEmotion(emo);
   };
 
   const handleRunDemoScript = () => {
-    const demoText = 'Hey, this is your AI influencer Bella running a live demo script.';
+    const demoText =
+      'Hey, this is your AI influencer Bella running a live demo script.';
     handleLlmReplyStart(demoText);
 
     setTimeout(() => {
@@ -95,7 +116,10 @@ const StudioAvatarPanel = () => {
           <button type="button" onClick={() => handleEmotionPreview('angry')}>
             Angry
           </button>
-          <button type="button" onClick={() => handleEmotionPreview('surprised')}>
+          <button
+            type="button"
+            onClick={() => handleEmotionPreview('surprised')}
+          >
             Surprised
           </button>
           <button type="button" onClick={() => handleEmotionPreview('neutral')}>
